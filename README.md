@@ -1,17 +1,19 @@
 # 🚀 FixForge Engine
 
-Backend engine for **FixForge**, responsible for processing logs, analyzing issues, and generating actionable insights or automated fixes.
+Backend engine for **FixForge**, responsible for analyzing inputs (logs/data), processing them, and producing actionable insights or fixes.
 
 ---
 
 ## 📌 Overview
 
-FixForge Engine is a scalable backend service designed to:
+FixForge Engine is a lightweight backend service designed to:
 
-- 🔍 Analyze system logs and detect issues
-- ⚙️ Process data and generate insights
-- 🤖 Suggest or trigger automated fixes
-- 📡 Expose REST APIs for UI and integrations
+- 🔍 Analyze logs or input data
+- ⚙️ Process and detect issues
+- 🤖 Generate insights or suggested fixes
+- 📡 Expose REST APIs for UI or external integrations
+
+> ⚠️ This service is designed to be **stateless** and does NOT require a database by default.
 
 ---
 
@@ -20,9 +22,9 @@ FixForge Engine is a scalable backend service designed to:
 - **Language**: Java
 - **Framework**: Spring Boot
 - **Build Tool**: Maven / Gradle
-- **Database**: (MySQL / PostgreSQL / MongoDB)
+- **Architecture**: Layered (Controller → Service → Processor)
 - **API**: RESTful services
-- **Other**: Lombok, Jackson
+- **Utilities**: Lombok, Jackson
 
 ---
 
@@ -32,16 +34,16 @@ FixForge Engine is a scalable backend service designed to:
 fixforge-engine/
 │
 ├── src/main/java/
-│   ├── controller/       # REST Controllers
+│   ├── controller/       # REST endpoints
 │   ├── service/          # Business logic
-│   ├── repository/       # Data access layer
-│   ├── model/            # Entity classes
-│   ├── dto/              # Data Transfer Objects
+│   ├── processor/        # Core analysis logic
+│   ├── model/            # Data models
+│   ├── dto/              # Request/response objects
 │   └── FixforgeApplication.java
 │
 ├── src/main/resources/
-│   ├── application.yml   # Configuration
-│   └── data/             # Sample data (if any)
+│   ├── application.yml   # App configuration
+│   └── data/             # Sample input files (if any)
 │
 ├── pom.xml / build.gradle
 └── README.md
@@ -53,7 +55,13 @@ fixforge-engine/
 
 - Java 17+
 - Maven or Gradle
-- Database (if configured)
+
+Verify:
+
+```bash
+java -version
+mvn -v
+```
 
 ---
 
@@ -90,15 +98,23 @@ or
 java -jar target/fixforge-engine.jar
 ```
 
+App runs at:
+
+```
+http://localhost:8080
+```
+
 ---
 
 ## 🔗 API Endpoints
 
-| Method | Endpoint         | Description                  |
-|--------|----------------|------------------------------|
-| GET    | /api/logs       | Fetch logs                   |
-| POST   | /api/analyze    | Analyze logs/issues          |
-| GET    | /api/results    | Get analysis results         |
+| Method | Endpoint         | Description                     |
+|--------|----------------|---------------------------------|
+| GET    | /health         | Health check                    |
+| POST   | /analyze        | Analyze input/log data          |
+| GET    | /results        | Fetch processed results         |
+
+> Endpoints may vary based on implementation.
 
 ---
 
@@ -111,21 +127,29 @@ server:
   port: 8080
 
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/fixforge
-    username: root
-    password: password
+  application:
+    name: fixforge-engine
 ```
+
+---
+
+## 🧠 Core Flow
+
+1. Client sends data/logs via API
+2. Controller receives request
+3. Service layer processes request
+4. Processor applies analysis logic
+5. Response returned to client
 
 ---
 
 ## 🧠 Key Features
 
-- ✅ Log processing engine
-- ✅ Issue detection logic
-- ✅ Modular service architecture
-- ✅ REST API integration
-- ✅ Scalable backend design
+- ✅ Stateless backend design (no DB dependency)
+- ✅ Modular architecture
+- ✅ Clean separation of concerns
+- ✅ Easy integration with frontend (FixForge UI)
+- ✅ Lightweight and scalable
 
 ---
 
@@ -149,7 +173,7 @@ mvn clean package
 
 - Docker (optional)
 - AWS / Azure / GCP
-- Kubernetes (if needed)
+- Kubernetes (optional)
 
 ---
 
@@ -158,8 +182,12 @@ mvn clean package
 ### Port already in use
 Change port in `application.yml`
 
-### Database connection issues
-Verify DB credentials and ensure DB is running
+### Java version mismatch
+Use:
+
+```bash
+nvm use 17
+```
 
 ---
 
