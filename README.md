@@ -13,7 +13,8 @@ FixForge Engine is a lightweight, stateless backend service that:
 - 🤖 Generates insights or suggested fixes
 - 📡 Exposes REST APIs for UI or integrations
 
-> ⚠️ This service does NOT require a database by default.
+> ⚠️ This service uses **application.properties** (not YAML) and **Gradle** (not Maven).
+> ⚠️ No database dependency by default.
 
 ---
 
@@ -22,31 +23,79 @@ FixForge Engine is a lightweight, stateless backend service that:
 - **Language**: Java
 - **Framework**: Spring Boot
 - **Build Tool**: Gradle
+- **Configuration**: application.properties
 - **Architecture**: Layered (Controller → Service → Processor)
 - **API**: RESTful services
 
 ---
 
-## 📂 Project Structure
+## 📂 Detailed Project Structure & File Responsibilities
 
 ```
 fixforge-engine/
 │
 ├── src/main/java/
-│   ├── controller/
-│   ├── service/
-│   ├── processor/
-│   ├── model/
-│   ├── dto/
-│   └── FixforgeApplication.java
+│   ├── controller/        # Handles HTTP requests & responses
+│   ├── service/           # Business logic orchestration
+│   ├── processor/         # Core analysis engine logic
+│   ├── model/             # Internal data models
+│   ├── dto/               # API request/response objects
+│   └── FixforgeApplication.java   # Spring Boot entry point
 │
 ├── src/main/resources/
-│   ├── application.properties
+│   ├── application.properties     # App configuration (port, app name)
 │
-├── build.gradle
-├── settings.gradle
+├── build.gradle           # Dependency management & build config
+├── settings.gradle        # Project settings
 └── README.md
 ```
+
+---
+
+## 🧠 File-Level Explanation
+
+### 🔹 Controller Layer (`controller/`)
+- Accepts incoming API requests
+- Validates input
+- Calls service layer
+- Returns response
+
+### 🔹 Service Layer (`service/`)
+- Coordinates business logic
+- Calls processor layer
+- Handles transformations between DTO and models
+
+### 🔹 Processor Layer (`processor/`)
+- Core engine of FixForge
+- Performs analysis / processing logic
+- Produces results based on input data
+
+### 🔹 DTO (`dto/`)
+- Defines request/response structures
+- Used for API communication
+
+### 🔹 Model (`model/`)
+- Internal representation of data
+- Used within service and processor layers
+
+### 🔹 Main Class
+`FixforgeApplication.java`
+- Entry point of Spring Boot application
+- Bootstraps the app
+
+### 🔹 Configuration
+`application.properties`
+- Defines runtime configuration like:
+```
+server.port=8080
+spring.application.name=fixforge-engine
+```
+
+### 🔹 Build File
+`build.gradle`
+- Manages dependencies
+- Defines build lifecycle
+- Configures plugins (Spring Boot, Java)
 
 ---
 
@@ -54,13 +103,6 @@ fixforge-engine/
 
 - Java 17+
 - Gradle (or use wrapper)
-
-Verify:
-
-```bash
-java -version
-./gradlew -v
-```
 
 ---
 
@@ -75,13 +117,13 @@ cd fixforge-engine
 
 ## ▶️ Running the Application
 
-### Using Gradle Wrapper (recommended)
+### Using Gradle Wrapper (Recommended)
 
 ```bash
 ./gradlew bootRun
 ```
 
-### Or build and run
+### Build and run JAR
 
 ```bash
 ./gradlew build
@@ -96,43 +138,33 @@ http://localhost:8080
 
 ---
 
-## 🔗 API Endpoints
+## 🔗 API Endpoints (Generic)
 
 | Method | Endpoint     | Description                |
 |--------|-------------|----------------------------|
 | GET    | /health     | Health check               |
-| POST   | /analyze    | Analyze input/log data     |
-| GET    | /results    | Fetch processed results    |
+| POST   | /analyze    | Analyze input data         |
+| GET    | /results    | Fetch results              |
 
 ---
 
-## 🔐 Configuration
+## 🧠 Request Flow
 
-Example `application.properties`:
-
-```properties
-server.port=8080
-spring.application.name=fixforge-engine
-```
-
----
-
-## 🧠 Core Flow
-
-1. Client sends data via API  
-2. Controller receives request  
-3. Service processes logic  
-4. Processor analyzes data  
-5. Response returned  
+1. Client sends request to API
+2. Controller receives request
+3. Service processes logic
+4. Processor analyzes input
+5. Result returned to client
 
 ---
 
 ## 🧠 Key Features
 
-- ✅ Stateless backend (no DB dependency)
-- ✅ Clean architecture
-- ✅ Lightweight and fast
-- ✅ Easy integration with UI
+- ✅ Stateless backend
+- ✅ No database dependency
+- ✅ Clean layered architecture
+- ✅ Modular and scalable design
+- ✅ Easy UI integration
 
 ---
 
@@ -154,9 +186,9 @@ spring.application.name=fixforge-engine
 
 ## 🚀 Deployment
 
-- Docker  
-- Cloud (AWS / Azure / GCP)  
-- Kubernetes (optional)  
+- Docker
+- Cloud (AWS / Azure / GCP)
+- Kubernetes (optional)
 
 ---
 
