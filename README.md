@@ -41,7 +41,7 @@ fixforge-engine/
 │   └── FixforgeApplication.java
 │
 ├── src/main/resources/
-│   ├── application.yml
+│   ├── application.properties
 │
 ├── build.gradle
 ├── settings.gradle
@@ -108,26 +108,22 @@ http://localhost:8080
 
 ## 🔐 Configuration
 
-Example `application.yml`:
+Example `application.properties`:
 
-```yaml
-server:
-  port: 8080
-
-spring:
-  application:
-    name: fixforge-engine
+```properties
+server.port=8080
+spring.application.name=fixforge-engine
 ```
 
 ---
 
 ## 🧠 Core Flow
 
-1. Client sends data via API
-2. Controller receives request
-3. Service processes logic
-4. Processor analyzes data
-5. Response returned
+1. Client sends data via API  
+2. Controller receives request  
+3. Service processes logic  
+4. Processor analyzes data  
+5. Response returned  
 
 ---
 
@@ -158,16 +154,16 @@ spring:
 
 ## 🚀 Deployment
 
-- Docker
-- Cloud (AWS / Azure / GCP)
-- Kubernetes (optional)
+- Docker  
+- Cloud (AWS / Azure / GCP)  
+- Kubernetes (optional)  
 
 ---
 
 ## 🐛 Common Issues
 
 ### Port already in use
-Change port in `application.yml`
+Change port in `application.properties`
 
 ### Java version mismatch
 Ensure Java 17+
