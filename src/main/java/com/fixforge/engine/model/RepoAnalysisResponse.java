@@ -1,12 +1,4 @@
-package com.example.log_analyzer;
-
-
-import java.util.List;
-
-
-
-
-
+package com.fixforge.engine.model;
 
 
 import java.util.List;

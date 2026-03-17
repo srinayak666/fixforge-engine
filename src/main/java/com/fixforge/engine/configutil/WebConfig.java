@@ -1,4 +1,4 @@
-package com.example.log_analyzer;
+package com.fixforge.engine.configutil;
 
 
 import org.springframework.context.annotation.Bean;

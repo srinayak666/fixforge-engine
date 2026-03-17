@@ -1,7 +1,8 @@
-package com.example.log_analyzer;
+package com.fixforge.engine.service;
 
 
 
+import com.fixforge.engine.model.RepoAnalysisResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,15 +1,13 @@
-package com.example.log_analyzer;
+package com.fixforge.engine.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fixforge.engine.model.RepoAnalysisResponse;
+import com.fixforge.engine.model.RepoRequest;
+import com.fixforge.engine.service.AIProviderRouterService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import org.springframework.web.bind.annotation.*;
-
-
 
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class RepoAnalysisController {
 
-    private  AIProviderRouterService routerService;
+    private AIProviderRouterService routerService;
 
     public RepoAnalysisController(AIProviderRouterService routerService) {
         this.routerService = routerService;

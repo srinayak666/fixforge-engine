@@ -1,13 +1,13 @@
-package com.example.log_analyzer;
+package com.fixforge.engine;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LogAnalyzerApplication {
+public class FixforgeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LogAnalyzerApplication.class, args);
+		SpringApplication.run(FixforgeApplication.class, args);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.example.log_analyzer;
+package com.fixforge.engine.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;

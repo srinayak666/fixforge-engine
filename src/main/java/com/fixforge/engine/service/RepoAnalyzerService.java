@@ -1,5 +1,7 @@
-package com.example.log_analyzer;
+package com.fixforge.engine.service;
 
+import com.fixforge.engine.configutil.JavaFileScanner;
+import com.fixforge.engine.model.RepoAnalysisResponse;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -11,7 +13,7 @@ import java.util.List;
 public class RepoAnalyzerService {
 
     private  GitRepoService gitRepoService;
-    private  JavaFileScanner scanner;
+    private JavaFileScanner scanner;
     private  CodeAnalyzerService geminiService;
     private  OllamaCodeAnalyzerService ollamaService;
     private  GitService gitService;
