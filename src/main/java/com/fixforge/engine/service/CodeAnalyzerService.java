@@ -1,6 +1,7 @@
 package com.fixforge.engine.service;
 
 
+import com.fixforge.engine.configutil.Prompt;
 import com.google.genai.Client;
 import com.google.genai.types.GenerateContentConfig;
 import com.google.genai.types.GenerateContentResponse;
@@ -49,35 +50,7 @@ public class CodeAnalyzerService {
 
     private String buildPrompt(String code) {
 
-        return """
-                You are an expert Java developer.
-
-                STRICT RULES:
-
-                1. Return COMPLETE corrected Java file
-                2. DO NOT remove class or structure
-                3. DO NOT create duplicate classes
-                4. DO NOT add explanation
-                5. DO NOT add comments like "Improved code"
-                6. Output MUST compile
-                7. Only fix actual issues
-
-                Fix:
-                - Null checks
-                - Divide by zero
-                - Resource leaks
-                - Syntax issues
-                - Hardcoded credentials (replace with env variables)
-
-                VERY IMPORTANT:
-                - Keep original class name
-                - Keep structure intact
-                - Modify ONLY required lines
-
-                RETURN ONLY JAVA CODE
-
-                CODE:
-                """ + code;
+        return Prompt.geminiPromptCodeAnayzer+code;
     }
 
     private String cleanFullCode(String code) {
@@ -96,43 +69,6 @@ public class CodeAnalyzerService {
                 .replace("```json", "")
                 .replace("```", "")
                 .trim();
-    }
-
-    private String cleanPatch(String patch) {
-
-        if (patch == null) return "";
-
-        String cleaned = patch
-                .replace("```diff", "")
-                .replace("```java", "")
-                .replace("```", "")
-                .replace("\\n", "\n")
-                .replace("\\t", "\t")
-                .trim();
-
-
-        int start = cleaned.indexOf("---");
-        if (start == -1) return "";
-
-        cleaned = cleaned.substring(start);
-
-
-        StringBuilder finalPatch = new StringBuilder();
-
-        for (String line : cleaned.split("\n")) {
-
-            if (line.startsWith("---") ||
-                    line.startsWith("+++") ||
-                    line.startsWith("@@") ||
-                    line.startsWith("+") ||
-                    line.startsWith("-") ||
-                    line.startsWith(" ")) {
-
-                finalPatch.append(line).append("\n");
-            }
-        }
-
-        return finalPatch.toString().trim();
     }
 
 

@@ -1,5 +1,6 @@
 package com.fixforge.engine.service;
 
+import com.fixforge.engine.configutil.Prompt;
 import com.google.genai.Client;
 import com.google.genai.types.GenerateContentResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,21 +26,7 @@ public class GeminiService {
 
     public String analyzeLog(String logContent) {
 
-        String prompt = """
-                You are an expert production support engineer.
-
-                Analyze the following log file and return ONLY JSON.
-
-                {
-                  "summary":"",
-                  "errors":[],
-                  "rootCause":"",
-                  "recommendations":[],
-                  "additionalNotes":""
-                }
-
-                LOG CONTENT:
-                """ + logContent;
+        String prompt = Prompt.getPrompt_analyzeWithGemini+logContent;
 
         GenerateContentResponse response =
                 client.models.generateContent(
