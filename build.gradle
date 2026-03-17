@@ -4,7 +4,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
-group = 'com.example'
+group = 'com.fixforge'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -35,6 +35,10 @@ dependencies {
 	implementation "org.springframework.ai:spring-ai-ollama-spring-boot-starter:${springAiVersion}"
 
 	// Google GenAI SDK
+	implementation 'com.google.genai:google-genai:1.4.1'
+	implementation 'io.github.java-diff-utils:java-diff-utils:4.12'
+	implementation 'org.eclipse.jgit:org.eclipse.jgit:6.10.0.202406032230-r'
+	implementation 'org.kohsuke:github-api:1.321'
 	implementation 'com.google.genai:google-genai:1.4.1'
 
 

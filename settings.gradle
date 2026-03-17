@@ -4,4 +4,4 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'log-analyzer'
+rootProject.name = 'fixforge-engine'

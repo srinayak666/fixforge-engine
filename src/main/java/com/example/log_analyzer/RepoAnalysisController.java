@@ -1,0 +1,39 @@
+package com.example.log_analyzer;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
+
+
+
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/repo")
+@CrossOrigin(origins = "*")
+public class RepoAnalysisController {
+
+    private  AIProviderRouterService routerService;
+
+    public RepoAnalysisController(AIProviderRouterService routerService) {
+        this.routerService = routerService;
+    }
+
+    @PostMapping("/analyze")
+    public RepoAnalysisResponse analyzeRepo(@RequestBody RepoRequest request) throws Exception {
+
+        if (request.getRepoUrl() == null || request.getRepoUrl().isEmpty()) {
+            throw new IllegalArgumentException("Repository URL is required");
+        }
+
+        return routerService.analyzeRepo(
+                request.getRepoUrl(),
+                request.getProvider()
+        );
+    }
+}
