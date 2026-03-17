@@ -1,7 +1,6 @@
 package com.fixforge.engine.service;
 
 
-
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -23,24 +22,18 @@ public class PatchApplierService {
 
         for (String line : patchLines) {
 
-            // Skip metadata
+
             if (line.startsWith("---") || line.startsWith("+++")
                     || line.startsWith("@@")) {
                 continue;
             }
 
-            // REMOVE (-)
+
             if (line.startsWith("-")) {
                 originalIndex++;
-            }
-
-            // ADD (+)
-            else if (line.startsWith("+")) {
+            } else if (line.startsWith("+")) {
                 newLines.add(line.substring(1));
-            }
-
-            // KEEP (context)
-            else {
+            } else {
                 if (originalIndex < originalLines.size()) {
                     newLines.add(originalLines.get(originalIndex));
                     originalIndex++;

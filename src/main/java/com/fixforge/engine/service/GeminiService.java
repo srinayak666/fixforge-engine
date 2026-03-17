@@ -26,20 +26,20 @@ public class GeminiService {
     public String analyzeLog(String logContent) {
 
         String prompt = """
-You are an expert production support engineer.
+                You are an expert production support engineer.
 
-Analyze the following log file and return ONLY JSON.
+                Analyze the following log file and return ONLY JSON.
 
-{
-  "summary":"",
-  "errors":[],
-  "rootCause":"",
-  "recommendations":[],
-  "additionalNotes":""
-}
+                {
+                  "summary":"",
+                  "errors":[],
+                  "rootCause":"",
+                  "recommendations":[],
+                  "additionalNotes":""
+                }
 
-LOG CONTENT:
-""" + logContent;
+                LOG CONTENT:
+                """ + logContent;
 
         GenerateContentResponse response =
                 client.models.generateContent(

@@ -1,7 +1,6 @@
 package com.fixforge.engine.service;
 
 
-
 import com.google.genai.Client;
 import com.google.genai.types.GenerateContentConfig;
 import com.google.genai.types.GenerateContentResponse;
@@ -51,35 +50,36 @@ public class CodeAnalyzerService {
     private String buildPrompt(String code) {
 
         return """
-You are an expert Java developer.
+                You are an expert Java developer.
 
-STRICT RULES:
+                STRICT RULES:
 
-1. Return COMPLETE corrected Java file
-2. DO NOT remove class or structure
-3. DO NOT create duplicate classes
-4. DO NOT add explanation
-5. DO NOT add comments like "Improved code"
-6. Output MUST compile
-7. Only fix actual issues
+                1. Return COMPLETE corrected Java file
+                2. DO NOT remove class or structure
+                3. DO NOT create duplicate classes
+                4. DO NOT add explanation
+                5. DO NOT add comments like "Improved code"
+                6. Output MUST compile
+                7. Only fix actual issues
 
-Fix:
-- Null checks
-- Divide by zero
-- Resource leaks
-- Syntax issues
-- Hardcoded credentials (replace with env variables)
+                Fix:
+                - Null checks
+                - Divide by zero
+                - Resource leaks
+                - Syntax issues
+                - Hardcoded credentials (replace with env variables)
 
-VERY IMPORTANT:
-- Keep original class name
-- Keep structure intact
-- Modify ONLY required lines
+                VERY IMPORTANT:
+                - Keep original class name
+                - Keep structure intact
+                - Modify ONLY required lines
 
-RETURN ONLY JAVA CODE
+                RETURN ONLY JAVA CODE
 
-CODE:
-""" + code;
+                CODE:
+                """ + code;
     }
+
     private String cleanFullCode(String code) {
 
         if (code == null) return "";
@@ -89,6 +89,7 @@ CODE:
                 .replace("```", "")
                 .trim();
     }
+
     private String cleanResponse(String text) {
 
         return text
@@ -97,10 +98,6 @@ CODE:
                 .trim();
     }
 
-
-    // =========================================
-    // CLEAN AI RESPONSE
-    // =========================================
     private String cleanPatch(String patch) {
 
         if (patch == null) return "";
@@ -113,13 +110,13 @@ CODE:
                 .replace("\\t", "\t")
                 .trim();
 
-        // Keep only from --- onwards
+
         int start = cleaned.indexOf("---");
         if (start == -1) return "";
 
         cleaned = cleaned.substring(start);
 
-        // ❗ REMOVE ALL NON-DIFF LINES
+
         StringBuilder finalPatch = new StringBuilder();
 
         for (String line : cleaned.split("\n")) {

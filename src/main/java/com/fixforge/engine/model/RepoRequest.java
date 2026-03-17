@@ -1,15 +1,13 @@
 package com.fixforge.engine.model;
 
 
-
-
-
 public class RepoRequest {
 
     private String repoUrl;
     private String provider; // ollama | gemini
 
-    public RepoRequest() {}
+    public RepoRequest() {
+    }
 
     public String getRepoUrl() {
         return repoUrl;

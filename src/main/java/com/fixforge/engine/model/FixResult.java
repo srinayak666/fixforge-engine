@@ -1,7 +1,6 @@
 package com.fixforge.engine.model;
 
 
-
 public class FixResult {
 
     private int line;

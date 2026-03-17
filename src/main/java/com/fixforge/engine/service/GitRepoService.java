@@ -1,7 +1,8 @@
 package com.fixforge.engine.service;
 
-import org.springframework.stereotype.Service;
 import org.eclipse.jgit.api.Git;
+import org.springframework.stereotype.Service;
+
 import java.io.File;
 
 @Service

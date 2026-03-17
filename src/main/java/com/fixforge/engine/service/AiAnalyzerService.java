@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AiAnalyzerService {
 
-    @Autowired private  ChatClient.Builder chatClientBuilder;
-    @Autowired  private  GeminiService geminiService;
+    @Autowired
+    private ChatClient.Builder chatClientBuilder;
+    @Autowired
+    private GeminiService geminiService;
 
     public String analyzeLog(String logContent, String provider) {
 
@@ -26,20 +28,20 @@ public class AiAnalyzerService {
         ChatClient chatClient = chatClientBuilder.build();
 
         String prompt = """
-You are an expert production support engineer.
+                You are an expert production support engineer.
 
-Analyze the following log file and return ONLY JSON.
+                Analyze the following log file and return ONLY JSON.
 
-{
- "summary":"",
- "errors":[],
- "rootCause":"",
- "recommendations":[],
- "additionalNotes":""
-}
+                {
+                 "summary":"",
+                 "errors":[],
+                 "rootCause":"",
+                 "recommendations":[],
+                 "additionalNotes":""
+                }
 
-LOG CONTENT:
-""" + logContent;
+                LOG CONTENT:
+                """ + logContent;
 
         String response = chatClient.prompt()
                 .user(prompt)

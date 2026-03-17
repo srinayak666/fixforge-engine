@@ -7,9 +7,10 @@ public class RepoAnalysisResponse {
 
     private String pullRequestUrl;
     private List<String> fixes;
-    private String providerUsed; // ✅ NEW (optional but useful)
+    private String providerUsed;
 
-    public RepoAnalysisResponse() {}
+    public RepoAnalysisResponse() {
+    }
 
     public RepoAnalysisResponse(String pullRequestUrl, List<String> fixes, String providerUsed) {
         this.pullRequestUrl = pullRequestUrl;

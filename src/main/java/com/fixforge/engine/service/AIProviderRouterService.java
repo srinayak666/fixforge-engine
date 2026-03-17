@@ -1,7 +1,6 @@
 package com.fixforge.engine.service;
 
 
-
 import com.fixforge.engine.model.RepoAnalysisResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class AIProviderRouterService {
 
-    @Autowired private  RepoAnalyzerService repoAnalyzerService;
+    @Autowired
+    private RepoAnalyzerService repoAnalyzerService;
 
     public AIProviderRouterService(RepoAnalyzerService repoAnalyzerService) {
         this.repoAnalyzerService = repoAnalyzerService;

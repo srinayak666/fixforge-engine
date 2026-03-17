@@ -1,50 +1,50 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.2.5'
-	id 'io.spring.dependency-management' version '1.1.4'
+    id 'java'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.fixforge'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+    sourceCompatibility = '17'
 }
 
 ext {
-	springAiVersion = "1.0.0-M1"
+    springAiVersion = "1.0.0-M1"
 }
 
 repositories {
-	mavenCentral()
-	maven {
-		url "https://repo.spring.io/milestone"
-	}
+    mavenCentral()
+    maven {
+        url "https://repo.spring.io/milestone"
+    }
 }
 
 dependencies {
 
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 
-	// Spring AI Ollama - local
-	implementation "org.springframework.ai:spring-ai-ollama-spring-boot-starter:${springAiVersion}"
+    // Spring AI Ollama - local
+    implementation "org.springframework.ai:spring-ai-ollama-spring-boot-starter:${springAiVersion}"
 
-	// Google GenAI SDK
-	implementation 'com.google.genai:google-genai:1.4.1'
-	implementation 'io.github.java-diff-utils:java-diff-utils:4.12'
-	implementation 'org.eclipse.jgit:org.eclipse.jgit:6.10.0.202406032230-r'
-	implementation 'org.kohsuke:github-api:1.321'
-	implementation 'com.google.genai:google-genai:1.4.1'
+    // Google GenAI SDK & git dependency
+    implementation 'com.google.genai:google-genai:1.4.1'
+    implementation 'io.github.java-diff-utils:java-diff-utils:4.12'
+    implementation 'org.eclipse.jgit:org.eclipse.jgit:6.10.0.202406032230-r'
+    implementation 'org.kohsuke:github-api:1.321'
+    implementation 'com.google.genai:google-genai:1.4.1'
 
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }

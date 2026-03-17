@@ -12,20 +12,14 @@ import java.util.List;
 @Service
 public class RepoAnalyzerService {
 
-    private  GitRepoService gitRepoService;
+    private GitRepoService gitRepoService;
     private JavaFileScanner scanner;
-    private  CodeAnalyzerService geminiService;
-    private  OllamaCodeAnalyzerService ollamaService;
-    private  GitService gitService;
-    private  GitHubService githubService;
+    private CodeAnalyzerService geminiService;
+    private OllamaCodeAnalyzerService ollamaService;
+    private GitService gitService;
+    private GitHubService githubService;
 
-    public RepoAnalyzerService(
-            GitRepoService gitRepoService,
-            JavaFileScanner scanner,
-            CodeAnalyzerService geminiService,
-            OllamaCodeAnalyzerService ollamaService,
-            GitService gitService,
-            GitHubService githubService) {
+    public RepoAnalyzerService(GitRepoService gitRepoService, JavaFileScanner scanner, CodeAnalyzerService geminiService, OllamaCodeAnalyzerService ollamaService, GitService gitService, GitHubService githubService) {
 
         this.gitRepoService = gitRepoService;
         this.scanner = scanner;
@@ -53,18 +47,15 @@ public class RepoAnalyzerService {
 
             String fixedCode;
 
-            // =========================
-            // ROUTING
-            // =========================
             if ("ollama".equalsIgnoreCase(provider)) {
 
                 fixedCode = ollamaService.analyzeCode(originalCode);
 
-                // 🔁 fallback to Gemini if bad
+
                 if (!isValidJavaFile(fixedCode)) {
 
-                    System.out.println("⚠️ Ollama failed → fallback to Gemini");
-continue;
+                    System.out.println(" Ollama failed → fallback to Gemini");
+                    continue;
                     //fixedCode = geminiService.analyzeCode(originalCode);
                 }
 
@@ -72,33 +63,25 @@ continue;
 
                 fixedCode = geminiService.analyzeCode(originalCode);
 
-                Thread.sleep(4000); // avoid rate limit
+                Thread.sleep(4000);
 
             } else {
                 throw new IllegalArgumentException("Invalid provider: " + provider);
             }
 
-            // =========================
-            // CLEAN RESPONSE
-            // =========================
+
             fixedCode = cleanFullCode(fixedCode);
 
-            System.out.println("Fixed code preview:\n" +
-                    fixedCode.substring(0, Math.min(300, fixedCode.length()))
-            );
+            System.out.println("Fixed code preview:\n" + fixedCode.substring(0, Math.min(300, fixedCode.length())));
 
-            // =========================
-            // VALIDATION
-            // =========================
+
             if (!isValidJavaFile(fixedCode)) {
 
-                System.out.println("❌ Invalid fixed file → skipping: " + file.getName());
+                System.out.println("Invalid fixed file → skipping: " + file.getName());
                 continue;
             }
 
-            // =========================
-            // WRITE BACK FILE
-            // =========================
+
             try {
 
                 Files.writeString(file.toPath(), fixedCode);
@@ -107,7 +90,7 @@ continue;
 
             } catch (Exception e) {
 
-                System.out.println("❌ Failed writing file: " + file.getName());
+                System.out.println(" Failed writing file: " + file.getName());
             }
         }
 
@@ -128,24 +111,11 @@ continue;
 
         if (code == null) return "";
 
-        return code
-                .replace("```java", "")
-                .replace("```", "")
-                .trim();
+        return code.replace("```java", "").replace("```", "").trim();
     }
 
-    // =========================
-    // VALIDATE JAVA FILE
-    // =========================
     private boolean isValidJavaFile(String code) {
 
-        return code != null &&
-                code.contains("class") &&
-                code.contains("{") &&
-                code.contains("}") &&
-                code.contains("public") &&
-                !code.contains("Improved") &&
-                !code.contains("Enhanced") &&
-                !code.contains("Here is");
+        return code != null && code.contains("class") && code.contains("{") && code.contains("}") && code.contains("public") && !code.contains("Improved") && !code.contains("Enhanced") && !code.contains("Here is");
     }
 }
